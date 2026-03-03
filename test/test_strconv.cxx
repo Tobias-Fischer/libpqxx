@@ -422,10 +422,12 @@ void test_to_buf_into_buf(pqxx::test::context &tctx)
   // NOLINTEND(modernize-raw-string-literal)
   check_write(std::list<std::string_view>{"foo"}, "{\"foo\"}");
 
+#if defined(PQXX_HAVE_YEAR_MONTH_DAY)
   check_write(
     std::chrono::year_month_day{
       std::chrono::year{2025}, std::chrono::month{03}, std::chrono::day{01}},
     "2025-03-01");
+#endif
 
   check_write(
     pqxx::range<int>{
